@@ -1,0 +1,14 @@
+<div class="card-container">
+  <div class="card hi">
+  <p>Encuentra las parejas {{couples_found}}/8</p>
+  
+    <button class="" *ngFor="let item of char_emolis">
+      <img class="w-100" [src]="item.wasClick ?  item.rute : ruteDefault " alt="">
+    </button>
+    <!-- Aquí va toda la información del character para que se vea en formato Card -->
+  </div>
+
+  <!-- Dentro del parágrafo va la información del Character que se está modifcando -->
+  <p></p>
+
+</div>
