@@ -29,3 +29,8 @@
   width: 100px;
   height: 100px;
 }
+.div-cont-img{
+  display: flex inline-block;
+  width: 500px;
+  height: 450px;
+}
