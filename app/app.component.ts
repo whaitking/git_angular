@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { flatMap } from 'rxjs';
 
 interface Character {
   name: string;
   rute: string;
-  wasClick?: boolean;
+  id: number;
+  wasClick?: boolean | undefined;
   found?: boolean;
 }
 
@@ -13,12 +15,13 @@ interface Character {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  win: string;
   couples_found: number;
   char_emolis: Character[] = [];
   ruteDefault: string = "./assets/party.png";
   contentTrue: boolean | undefined;
   contetName: Character | undefined;
-  runing: boolean | undefined;
+  runing: boolean;
 
 
   constructor() {
@@ -28,36 +31,45 @@ export class AppComponent {
 
     for (let i = 0; i < name_emolis.length; i++) {
       this.shuffle(this.char_emolis);
-      this.char_emolis.push({ name: name_emolis[i], rute: `./assets/${name_emolis[i]}.png`, wasClick: false });
-      this.char_emolis.push({ name: name_emolis[i], rute: `./assets/${name_emolis[i]}.png`, wasClick: false });
+      this.char_emolis.push({ name: name_emolis[i], rute: `./assets/${name_emolis[i]}.png`, wasClick: false, id: i });
+      this.char_emolis.push({ name: name_emolis[i], rute: `./assets/${name_emolis[i]}.png`, wasClick: false, id: (i + 10) });
+      console.log(i + 10);
     }
+
 
     console.log(name_emolis);
     console.log(this.char_emolis);
     this.couples_found = 0;
+    this.win = "hidden-grid";
+    this.runing = true;
   }
 
 
   whenWasClick(item: Character): void {//clicando dos veces se bug contador
+
     console.log(this.contentTrue);
     if (this.contentTrue == undefined) {
       this.contentTrue = true;
       item.wasClick = true;
       this.contetName = item;
       console.log("la uno");
-    } else if (this.contentTrue == true) {
+    } else if (this.contentTrue) {
       this.contentTrue = false;
       item.wasClick = true;
+
       if (this.contetName?.name == item.name) {
         this.couples_found++;
         item.found = true;
         this.contetName.found = true;
         this.contentTrue = undefined;
+
+        this.runing = this.couples_found < 8;
+
       } else {
         this.contentTrue = undefined;
         this.char_emolis.forEach(element => {
           if (element.found != true) {
-            setTimeout(() => { element.wasClick = false; }, 300);
+            setTimeout(() => { element.wasClick = false; }, 500);
           }
         });
       }
@@ -65,7 +77,6 @@ export class AppComponent {
     } else {//this.contentTrue==false
       this.contentTrue == undefined;
     }
-
 
   }
 

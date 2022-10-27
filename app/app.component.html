@@ -2,12 +2,14 @@
   <div class="card hi">
     <p>Encuentra las parejas {{couples_found}}/8</p>
 
-    <div class="div-cont-img">
-      <button  class="" *ngFor="let item of char_emolis">
+    <div *ngIf="runing" class="div-cont-img">
+      <button class="" *ngFor="let item of char_emolis">
         <img (click)="whenWasClick(item)" class="w-100"  [src]="item.wasClick ?  item.rute : ruteDefault" alt="">
       </button>
       <!-- Aquí va toda la información del character para que se vea en formato Card -->
     </div>
+
+    <p *ngIf="!runing">GANASTE MUY BIEN</p>
   </div>
 
   <!-- Dentro del parágrafo va la información del Character que se está modifcando -->

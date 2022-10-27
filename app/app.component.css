@@ -17,7 +17,7 @@
 }
 
 .hidden-grid {
-  display: grid;
+  display: flex inline-block;
 }
 
 .card>input {
